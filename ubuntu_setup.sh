@@ -1,5 +1,6 @@
 #!/bin/bash
-# Automated Script to streamline local development setup for Ubuntu
+
+# Automation Script to streamline local development setup for Ubuntu-based systems
 
 # --- Functions ---
 
@@ -56,7 +57,7 @@ function cleanup() {
 
 # --- Main Script ---
 
-echo "Automated setup Script for Ubuntu"
+echo "Automated setup Script for Ubuntu-based Systems"
 echo "Choose starting step:"
 echo "1. Pre-Update"
 echo "2. Installations"

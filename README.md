@@ -12,7 +12,7 @@ Automation Script to streamline local development setup. Either follow the steps
 sudo apt install curl
 ```
 
-* Step 2 - Install Curl:
+* Step 2 - Execute script:
 
 ```
 curl -fsSL https://raw.githubusercontent.com/ruanfdev/automated_setup_script/master/ubuntu_setup.sh | bash
@@ -28,7 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/ruanfdev/automated_setup_script/mas
 sudo dnf install curl
 ```
 
-* Step 2 - Install Curl:
+* Step 2 - Execute script:
 
 ```
 curl -fsSL https://raw.githubusercontent.com/ruanfdev/automated_setup_script/master/fedora_setup.sh

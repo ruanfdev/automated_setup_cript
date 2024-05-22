@@ -1,6 +1,10 @@
 # Automated Setup Script
 Automated Script to streamline local development setup
-* Currently supporting:
+* Tested and working:
 ```
-* Ubuntu
+* Ubuntu-based systems
+```
+* Not tested (tweak as necessary):
+```
+* Fedora-based systems
 ```

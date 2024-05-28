@@ -34,6 +34,14 @@ sudo dnf install curl
 curl -fsSL https://raw.githubusercontent.com/ruanfdev/automated_setup_script/master/fedora_setup.sh
 ```
 
+### Windows-based systems:
+
+* Step 1 - Execute script:
+
+```
+irm https://raw.githubusercontent.com/ruanfdev/automated_setup_script/master/windows.ps1 | iex
+```
+
 ## Curl explanation:
 
 1. curl: Downloads the script content from the specified URL.

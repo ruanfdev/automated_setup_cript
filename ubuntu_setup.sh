@@ -27,7 +27,7 @@ function installations() {
 
 function node_npm() {
     echo "Setting up node & npm..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
     source ~/.bashrc && \
     command -v nvm && \
     nvm install --lts || (echo "Error in node/npm setup. Fix and rerun from step 3." && exit 1)

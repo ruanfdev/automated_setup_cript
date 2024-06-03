@@ -1,11 +1,9 @@
 # Automation Script to streamline local development setup for Windows-based systems
 
 # --- Functions ---
-
 function Install-WithWinget {
     param (
-        [string]$PackageName,
-        [int]$StepNumber
+        [string]$PackageName
     )
 
     Write-Host "Installing $PackageName using WinGet..."
@@ -13,7 +11,7 @@ function Install-WithWinget {
     $latestVersion = $packageInfo.Property | Where-Object {$_.Name -eq 'Version'} | Select-Object -ExpandProperty Value
     winget install "$PackageName" -v "$latestVersion" -h -e || (
         Write-Warning "Failed to install $PackageName with WinGet."
-        Install-WithChocolatey $PackageName $StepNumber
+        Install-WithChocolatey $PackageName
     )
 
     Write-Host "$PackageName installation completed successfully!"
@@ -21,8 +19,7 @@ function Install-WithWinget {
 
 function Install-WithChocolatey {
     param (
-        [string]$PackageName,
-        [int]$StepNumber
+        [string]$PackageName
     )
 
     # Check if Chocolatey is installed
@@ -33,40 +30,42 @@ function Install-WithChocolatey {
     }
 
     choco install $PackageName -y || (
-        Write-Error "Failed to install $PackageName with Chocolatey. Please install manually and restart from step $StepNumber."
+        Write-Error "Failed to install $PackageName with Chocolatey. Please install manually and rerun script."
         exit 1
     )
 }
 
 function PreUpdate {
     Write-Host "Checking for and installing Windows Updates..."
-    Install-WithWinget Microsoft.Windows.Update 1
+    Install-WithWinget Microsoft.Windows.Update
 }
 
 function InstallCoreComponents {
     Write-Host "Installing core components..."
-    Install-WithWinget Git.Git 2
-    InstallNodeJS 3
-    InstallPHP 4
+    Install-WithWinget Git.Git
+    InstallNodeJS
+    InstallPHP
 }
 
 function InstallNodeJS {
     Write-Host "Installing Node.js & npm..."
-    Install-WithWinget OpenJS.NodeJS 3
+    Install-WithWinget OpenJS.NodeJS
 }
 
 function InstallPHP {
     Write-Host "Installing PHP..."
-    Install-WithWinget PHP.PHP 4
+    Install-WithWinget PHP.PHP
 }
 
 function InstallComposer {
     Write-Host "Installing Composer..."
     # Download Composer installer
     Invoke-WebRequest -Uri https://getcomposer.org/installer -OutFile composer-setup.php
-    # Verify installer hash (add hash verification logic here)
+
+    # Verify installer hash (you'll still need to add hash verification logic here)
+    # For now, we'll assume the installer is valid
     php composer-setup.php --install-dir=$env:ProgramData\ComposerSetup\bin --filename=composer || (
-        Write-Error "Error installing Composer. Fix and rerun from step 5."
+        Write-Error "Error installing Composer. Fix and rerun script."
         exit 1
     )
 
@@ -78,28 +77,13 @@ function Cleanup {
     Remove-Item composer-setup.php
 }
 
-
 # --- Main Script ---
 
-Write-Host "Automated Windows Development Environment Setup"
-Write-Host "Choose starting step:"
-Write-Host "1. Check for and Install Updates"
-Write-Host "2. Install Core Components"
-Write-Host "3. Install NodeJS & npm"
-Write-Host "4. Install PHP"
-Write-Host "5. Install Composer"
-Write-Host "6. Cleanup (Only if everything else is done)"
-
-$choice = Read-Host "Enter your choice: "
-
-switch ($choice) {
-    1 { PreUpdate }
-    2 { InstallCoreComponents }
-    3 { InstallNodeJS }
-    4 { InstallPHP }
-    5 { InstallComposer }
-    6 { Cleanup }
-    default { Write-Error "Invalid choice." ; exit 1 }
-}
+PreUpdate
+InstallCoreComponents
+InstallNodeJS
+InstallPHP
+InstallComposer
+Cleanup
 
 Write-Host "Setup completed successfully!"

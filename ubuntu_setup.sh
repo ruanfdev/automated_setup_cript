@@ -27,7 +27,7 @@ function node_npm() {
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
     source ~/.bashrc && \
     command -v nvm && \
-    nvm install --lts || (echo "Error in node/npm setup. Fix and rerun from step 3." && exit 1)
+    nvm install --lts || (echo "Error in node/npm setup. Fix and rerun script." && exit 1)
     echo "Node & npm setup completed successfully!"
 }
 
@@ -35,8 +35,8 @@ function composer() {
     echo "Installing Composer..."
     curl -sS https://getcomposer.org/installer -o composer-setup.php && \
     HASH=`curl -sS https://composer.github.io/installer.sig` && \
-    php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt. Fix and rerun script.'; unlink('composer-setup.php'); exit 1; } echo PHP_EOL;" && \
-    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer || (echo "Error installing Composer. Fix and rerun script." && exit 1)
+    php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt. Fix and rerun script.'; unlink('composer-setup.php'); }" && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer || (echo "Error installing Composer. Fix and rerun script." && exit 1)
     echo "Composer installation completed successfully!"
 }
 

@@ -5,7 +5,6 @@
 cd ~
 
 # --- Functions ---
-
 function pre_update() {
     echo "Pre-Update..."
     sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y || (echo "Error in pre-update. Fix and rerun script." && exit 1)
@@ -53,7 +52,6 @@ function cleanup() {
 }
 
 # --- Main Script ---
-
 pre_update
 installations
 node_npm
